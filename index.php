@@ -20,8 +20,13 @@
   <body>
     
     <div class="container">
-	    
-	    <div id="results">
+	    <div class="row">
+		    <div class="col-sm-12">
+			    <h1>My Table</h1>
+			    
+			    <div id="results">
+				</div>
+		    </div>
 	    </div>
     
     

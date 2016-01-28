@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $.ajax({
+	$.ajax({
         type: "POST",
         url: "data/articles.json",
         contentType: "application/json; charset=utf-8",
@@ -11,9 +11,6 @@ $(document).ready(function() {
     });
 });
 
-
-
-
 // This function creates a standard table with column/rows
 // Parameter Information
 // objArray = Anytype of object array, like JSON results
@@ -22,7 +19,7 @@ $(document).ready(function() {
 function CreateTableView(objArray, theme, enableHeader) {
     // set optional theme parameter
     if (theme === undefined) {
-        theme = 'mediumTable'; //default theme
+        theme = 'table'; //default theme
     }
  
     if (enableHeader === undefined) {
@@ -32,7 +29,7 @@ function CreateTableView(objArray, theme, enableHeader) {
     // If the returned data is an object do nothing, else try to parse
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
  
-    var str = '<table class="' + theme + '">';
+    var str = '<table class="' + theme + ' table-striped">';
      
     // table head
     if (enableHeader) {
