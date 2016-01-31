@@ -23,11 +23,8 @@
 	    <div class="row">
 		    <div class="col-sm-12">
 			    <h1>My Table</h1>
-			    <div class="hold"></div>
-				<input type="button" id="btnLoadMore" value="Load More"/>
-			    
-			    <div id="results">
-				</div>
+			    <div id="results"></div>
+				<input type="button" id="btnLoadMore" value="Load More"/>			    
 		    </div>
 	    </div>
     

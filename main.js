@@ -13,24 +13,19 @@ jQuery( document ).ready(function( $ ) {
         dataType: "json",
         data: "{}",
         success: function(json) {
-//             $('#results').append(CreateTableView(res)).fadeIn();
+            $('#results').append(CreateTableView(json)).fadeIn();
 
-				var array = typeof json != 'object' ? JSON.parse(json) : json; 
-    
-			    $.each(array, function (i, value) {
-			        var list = "<li class='hidden' >" + "<img src'" + array[i].image + "' alt=''/>" + "<span>" + array[i].title + "</span>" + "<span>" + array[i].id + "</span>"
-			        $('.hold').append(list);
-			    });
 			    
 			    function loadMore(){
-			        $(".hold .hidden").slice(0,10).removeClass("hidden");
+			        $("#results .hidden").slice(0,10).removeClass("hidden");
 			    }
 			    
 			    loadMore();
 			    
 			    $("#btnLoadMore").on("click",loadMore);
 
-
+// when numClicks > i*10
+// load moreArticles.json
 
             
         }
@@ -47,60 +42,57 @@ jQuery( document ).ready(function( $ ) {
 // theme (optional) = A css class to add to the table (e.g. <table class="<theme>">
 // enableHeader (optional) = Controls if you want to hide/show, default is show
 function CreateTableView(objArray, theme, enableHeader) {
-    // set optional theme parameter
-    if (theme === undefined) {
-        theme = 'table'; //default theme
-    }
- 
-    if (enableHeader === undefined) {
-        enableHeader = true; //default enable headers
-    }
- 
+     
     // If the returned data is an object do nothing, else try to parse
-    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;    
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;   
+    
+/*
+    $.each(array, function(key, value){
+	    $.each(value, function(key, value){
+	        console.log(key, value);
+	    });
+	});
+*/
+     
  
-		    var str = '<table class="' + theme + ' table-striped">';
+	var str = '<table class="' + theme + ' table-striped">';
 		     
-		    // table head
-		    if (enableHeader) {
-		        str += '<thead><tr>';
-		        str += '<th>Image</th><th>title</th><th>Words</th><th>Submitted</th>';
-		        
-		        str += '</tr></thead>';
-		    }
+	// table head
+    if (enableHeader) {
+        str += '<thead><tr>';
+        str += '<th>Image</th><th>title</th><th>Words</th><th>Submitted</th>';
+        str += '</tr></thead>';
+    }
 		     
 		    // table body
 		    str += '<tbody>';
 		    for (var i = 0; i < array.length; i++) {
 		
-		// 		VARS
+			// 	vars
 		        var obj = array[i];
 		        var link = array[i].url;
 		        var title = array[i].title;
 		        var id = array[i].id;
 				var img = array[i].image;
-				var tags = array[i].tags;
-				for ( var tag in tags[i] ) {
-					tagList = tags[i][tag];
-				}
-				
 				var profile = array[i].profile;
+				var tags = array[i].tags;
+
+
+				$.each(tags, function(key, value){
+				    $.each(value, function(key, value){
+				        console.log(key, value);
+				        return value;
+				    });
+				});
+
+			
+				
+				
 		
-				str += '<tr data-link="'+ link +'"><td><img src="'+ img +'" class="img-responsive"/></td><td><h3>'+ title +'</h3></td>';
-				str += '<td>'+ tagList +'</td>';
-				str += '<td>'+ profile +'</td>';
-				str += '<td><h1>'+ i +'<h1></td>';
+				str += '<tr class="hidden" data-link="'+ link +'"><td><h1>'+ i +'<h1></td><td style="width: 100px;"><img src="'+ img +'" class="img-responsive"/></td><td><h3>'+ title +'</h3></td>';
+				str += '<td>'+  +'</td>';
+				str += '<td>'+ profile.first_name +' '+ profile.last_name +'</td>';
 				str += '</tr>';
-						
-				
-		/*
-		        for (var index in array[i]) {
-		            str += '<td>' + array[i][index] + '</td>';
-		        }
-		*/
-				
-				
-		
 		        
 		    }
     str += '</tbody>'
