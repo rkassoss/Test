@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,13 +25,11 @@
 		    <div class="col-sm-12">
 			    <h1>My Table</h1>
 			    <div id="results"></div>
-				<input type="button" id="btnLoadMore" value="Load More"/>			    
+				<input type="button" id="btnLoadMore" value="Load More"/>
+				<div id="loader"></div>			    
 		    </div>
 	    </div>
-    
-    
     </div> <!-- END CONTAINER -->
-    
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
