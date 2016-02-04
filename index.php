@@ -29,6 +29,9 @@
 				<div id="loader"></div>			    
 		    </div>
 	    </div>
+	    <div class="row">
+		   
+	    </div>
     </div> <!-- END CONTAINER -->
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

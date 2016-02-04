@@ -3,7 +3,14 @@ jQuery( document ).ready(function( $ ) {
 	$( '#results' ).on( 'click', 'tr', function () { 
 		window.location.href = $(this).data('link');
 	});
-		
+	
+	
+/*
+	First, load the articles.json file, and display 10 at the time. 
+	On loadButton click, check if there are more articles to show, if yes-show
+	If no- ajax request.
+*/
+	
 	
 	//grab data from data/articles.js show only 10 items at the time
 	$.ajax({
@@ -18,7 +25,22 @@ jQuery( document ).ready(function( $ ) {
 		    loadMore();
 		    
 		    $("#btnLoadMore").on("click",function() {
-			    loadMore();
+			    
+			    if ( $('#results').find('tr.hidden').length != 0 ) {
+				    loadMore();
+			    } else {
+				   $.ajax({
+				        type: "POST",
+				        url: "data/more-articles.json",
+				        contentType: "application/json; charset=utf-8",
+				        dataType: "json",
+				        data: "{}",
+				        success: function(json) {
+				            $('#results').append(CreateTableView(json)).fadeIn();
+						    loadMore();
+						}
+					}); 
+			    }
 		    });	
         }
     });
@@ -26,13 +48,8 @@ jQuery( document ).ready(function( $ ) {
 });
 
 function loadMore() {
-	    if ($("#results .table tr").hasClass('.hidden')) {
-		    console.log('There is More!');
-	    } else {
-		    console.log('No More');
-	    }
-		$("#results .hidden").slice(0,10).removeClass("hidden");
-	}
+	$("#results .hidden").slice(0,10).removeClass("hidden");
+}
 
 // This function creates a standard table with column/rows
 // Parameter Information
