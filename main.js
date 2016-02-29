@@ -26,8 +26,8 @@ jQuery( document ).ready(function( $ ) {
 		    
 		    $("#btnLoadMore").on("click",function() {
 			    
-			    if ( $('#results').find('tr.hidden').length != 0 ) {
-				    loadMore();
+			    if  ( $('#results').find('tr.hidden').length != 0 )  {
+				    loadMore();				    
 			    } else {
 				   $.ajax({
 				        type: "POST",
@@ -36,11 +36,10 @@ jQuery( document ).ready(function( $ ) {
 				        dataType: "json",
 				        data: "{}",
 				        success: function(json) {
-				            $('#results').append(CreateTableView(json)).fadeIn();
+				            $('#results').append(AddMoreArticles(json)).fadeIn();
 						    loadMore();
 						}
-					}); 
-			    }
+					});
 		    });	
         }
     });
@@ -50,6 +49,7 @@ jQuery( document ).ready(function( $ ) {
 function loadMore() {
 	$("#results .hidden").slice(0,10).removeClass("hidden");
 }
+
 
 // This function creates a standard table with column/rows
 // Parameter Information
@@ -91,7 +91,7 @@ function CreateTableView(objArray) {
 				});
 */
 		
-				str += '<tr class="hidden" data-link="'+ link +'"><td style="width: 100px;"><img src="'+ img +'" class="img-responsive"/></td><td>'+ title +'</td>';
+				str += '<tr class="hidden" data-link="'+ link +'"><td>'+ i +'</td><td style="width: 100px;"><img src="'+ img +'" class="img-responsive"/></td><td>'+ title +'</td>';
 				str += '<td>'+ words +'</td>';
 				str += '<td>'+ profile.first_name +' '+ profile.last_name +'</td><td>'+ publish +'</td>';
 				str += '</tr>';
@@ -101,6 +101,49 @@ function CreateTableView(objArray) {
     str += '</table>';
     return str;
 }
+
+function AddMoreArticles(objArray) {
+     
+    // If the returned data is an object do nothing, else try to parse
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;   
+   
+	var str = '<table class="table table-striped">';
+		     
+
+		    // table body
+		    str += '<tbody>';
+		    for (var i = 0; i < array.length; i++) {
+		
+			// 	vars
+		        var obj = array[i];
+		        var link = array[i].url;
+		        var title = array[i].title;
+		        var id = array[i].id;
+				var img = array[i].image;
+				var profile = array[i].profile;
+				var words = array[i].words;
+				var publish = array[i].publish_at;
+				
+				
+/*
+				$.each(array, function(key, value){
+				    $.each(value, function(key, value){
+						console.log(key, value);
+				    });
+				});
+*/
+		
+				str += '<tr class="hidden" data-link="'+ link +'"><td>'+ i +'</td><td style="width: 100px;"><img src="'+ img +'" class="img-responsive"/></td><td>'+ title +'</td>';
+				str += '<td>'+ words +'</td>';
+				str += '<td>'+ profile.first_name +' '+ profile.last_name +'</td><td>'+ publish +'</td>';
+				str += '</tr>';
+		        
+		    }
+    str += '</tbody>'
+    str += '</table>';
+    return str;
+}
+
 
 
 
